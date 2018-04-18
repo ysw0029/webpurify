@@ -1,0 +1,96 @@
+<html>
+<body>
+<head>
+
+	<meta name="verify-v1" content="RLcTdMy/36+fY1D5V3l+QZIypaU54XJHb4eLkyJz6Uc=" />
+	<meta name="msvalidate.01" content="EB273FEE041698485B884D336429756E" />
+	<meta name="esyn-verification" content="08da03c47988c0827fed89fafbb5a0c9" />
+	<meta property="fb:app_id" content="357245943312"/>
+
+	<link rel="stylesheet" href="./css/style.css" type="text/html" media="screen" />
+	<link rel="stylesheet" href="./css/admin.css" type="text/html" media="screen" />
+
+	<script type="text/javascript" src="./js/iwh4hkt.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+<script type="text/javascript" src="./js/admin.js"></script>
+<script type="text/javascript" src="./js/jquery.jeditable.mini.js" charset="utf-8"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1192734-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// The most basic form of using the inPlaceEditor
+	     $('#nedit9729').editable('/account/filter/cname.php', {
+         indicator : 'Saving...',
+         submitdata: { _method: "put" },
+         type	   : 'text',
+         tooltip   : 'Click to edit...',
+         width     : '100px',
+         cancel    : 'Cancel', 
+         submit    : 'OK'       
+     });
+});
+</script>
+
+</head>
+	<section class="module">
+		<h3>Customize Filter</h3>
+
+		<div id="lists">
+			<p id="listmessage"></p>
+
+			<ul class="tabs">
+				<li><a href="#bl" class="active dark">Block List</a></li>
+			</ul>
+	
+			<div id="bl" class="tab dark">
+				<div class="left">
+					<p>Words added to your <strong>block list</strong> will be filtered along with words we filter by default.</p>
+					<!--<p class="icon"><img src="/account/inc/img/icon-deepsearch-dark.png"> indicates "Deep Search" is enabled.</p>-->
+					<form id="addtoblack" method="post">
+						<p>
+							<input type="text" id="addFilterWord" name="addFilterWord" maxlength="30" size="30" class="text-field">
+							<input type="submit" value="Add Word" class="btn">
+							<label class="ds" for="filter_ds"><input type="checkbox" name="filter_ds" value="1" id="filter_ds"> Enable Deep Search <i class="ion-help-circled helpTip" style="color: #ffffff"><span>Add deep search for this blocked word.</span></i></label>	
+							<input type="hidden" id="siteid" name="siteid" value="9729">						
+						</p>
+					</form>
+				</div>
+				<div class="right">
+					<form id="theblacklist" method="post">
+						<div class="list">
+							<ul id="bl2">
+													
+							</ul>
+						</div>
+						<p id="bl-actions" class="actions">
+							<input type="hidden" id="blacklist" name="removeFilterWord" value="">
+							<input type="hidden" name="siteid" value="9729">
+							<input type="submit" class="remove" value="Remove Word">
+							<input id="deeptoggle" class="dsBtn" type="button" value="Deep Search">
+						</p>
+					</form>
+				</div>
+			</div>
+	
+
+		</div>
+
+
+	</section>
+
+
+</body>
+</html>
