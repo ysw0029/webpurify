@@ -10,12 +10,12 @@
 	<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="/css/admin.css" type="text/css" media="screen" />
 
-	<script type="text/javascript" src="./js/iwh4hkt.js"></script>
+	<!--<script type="text/javascript" src="./js/iwh4hkt.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
 <script type="text/javascript" src="./js/jquery.js"></script>
 <script type="text/javascript" src="./js/main.js"></script>
-<script type="text/javascript" src="./js/admin.js"></script>
+<!--<script type="text/javascript" src="./js/admin.js"></script>
 <script type="text/javascript" src="./js/jquery.jeditable.mini.js" charset="utf-8"></script>
 
 <script>
@@ -27,22 +27,8 @@
   ga('create', 'UA-1192734-1', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script>-->
 
-<script type="text/javascript">
-$(document).ready(function(){
-	// The most basic form of using the inPlaceEditor
-	     $('#nedit9729').editable('/account/filter/cname.php', {
-         indicator : 'Saving...',
-         submitdata: { _method: "put" },
-         type	   : 'text',
-         tooltip   : 'Click to edit...',
-         width     : '100px',
-         cancel    : 'Cancel', 
-         submit    : 'OK'       
-     });
-});
-</script>
 
 </head>
 	<section class="module">
@@ -59,7 +45,7 @@ $(document).ready(function(){
 				<div class="left">
 					<p>Words added to your <strong>block list</strong> will be filtered along with words we filter by default.</p>
 					<!--<p class="icon"><img src="/account/inc/img/icon-deepsearch-dark.png"> indicates "Deep Search" is enabled.</p>-->
-					<form id="addtoblack" method="post">
+					<form id="addtoblack" method="post" action="/addToBlacklist">
 						<p>
 							<input type="text" id="addFilterWord" name="addFilterWord" maxlength="30" size="30" class="text-field">
 							<input type="submit" value="Add Word" class="btn">
@@ -90,7 +76,7 @@ $(document).ready(function(){
 
 
 	</section>
-
+	
 
 </body>
 </html>

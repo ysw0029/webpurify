@@ -9,7 +9,8 @@ const wp = new WebPurify({
 var app = express();
 
 app.use(express.static('public'));
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -17,21 +18,50 @@ app.get('/', function(req, res){
     res.render('frontend.html',  {'Content-type' : 'text/css'});
 });
 
-app.use(function(req, res){
-    wp.addToBlacklist('my_word')
-    .then(success => {
-      if (success) { console.log('success!'); list();}
-    });
+app.post('/addToBlacklist', function(req, res){
+    console.log(req.body.addFilterWord);
+    addToBlacklist(req.body.addFilterWord);
+
+    returnKeyWord('awlfhnlaehnlawef my_word');
+
 });
 
-function list(){
+
+app.post('/getBlacklist', )
+function getBlacklist(){
     wp.getBlacklist()
-     .then(blacklist => {
+    .then(blacklist => {
         for (word in blacklist) {
-    console.log(blacklist[word]);
-  }
-});
+            console.log(blacklist[word]);
+        }
+    });
 }
+
+
+
+function addToBlacklist(req){
+    wp.addToBlacklist(req)
+    .then(success => {
+      if (success) { console.log('success!');}
+    });
+}
+
+function removeFromBlacklist(req){
+    wp.removeFromBlacklist(req)
+    .then(success => {
+      if (success) { console.log('success!'); }
+    });
+}
+
+function returnKeyWord(req){
+    wp.return(req)
+    .then(profanity => {
+        for (word in profanity) {
+            console.log(profanity[word]);
+        }
+    });
+}
+
 var server = app.listen(5000, function(){
     console.log("connecting server using port 5000");
 })
