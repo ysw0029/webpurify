@@ -1,12 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 const WebPurify = require('webpurify');
+var io = require('socket.io-client');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+var socket = io.connect('http://localhost:7777');
+
 const wp = new WebPurify({
-    api_key: '02bd844833e5a5f1fc15ebb1fbd196f5'
+    api_key:'2875199a8ef09c44a0a2c4cafaf270ca'
     //, endpoint:   'us'  // Optional, available choices: 'eu', 'ap'. Default: 'us'.
-    , enterprise: true // Optional, set to true if you are using the enterprise API, allows SSL
+    //, enterprise: true // Optional, set to true if you are using the enterprise API, allows SSL
 });
 var app = express();
+
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -14,8 +19,26 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-app.get('/', function(req, res){
-    res.render('frontend.html',  {'Content-type' : 'text/css'});
+
+
+socket.on('connect', function(data) {
+    socket.emit('join', 'Hello server from client');
+});
+
+app.get('/frontend', function(req, res){
+    res.render('frontend.html');
+});
+
+app.get('/',function(req, res){
+    res.render('form.html');
+    //socket.emit('message', 'Send message from client');
+
+});
+
+app.post('/return',function(req, res){
+    console.log(req.body.data);
+    returnKeyWord(req.body.data);
+    //socket.emit('messages', 'Send message from client');
 });
 
 app.post('/addToBlacklist', function(req, res){
@@ -27,14 +50,23 @@ app.post('/addToBlacklist', function(req, res){
 });
 
 
-app.post('/getBlacklist', )
+app.post('/getBlacklist', function(req, res){
+    var list = getBlacklist();
+   // console.log(list[]);
+    res.send(list);
+});
 function getBlacklist(){
+    var list=[];
     wp.getBlacklist()
     .then(blacklist => {
         for (word in blacklist) {
             console.log(blacklist[word]);
+            list.push(blacklist[word]);
         }
     });
+    console.log(list);
+
+    return list;
 }
 
 

@@ -6,14 +6,34 @@
 	<meta name="msvalidate.01" content="EB273FEE041698485B884D336429756E" />
 	<meta name="esyn-verification" content="08da03c47988c0827fed89fafbb5a0c9" />
 	<meta property="fb:app_id" content="357245943312"/>
+	<script type="text/javascript" src="./js/jquery.js"></script>
 
 	<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="/css/admin.css" type="text/css" media="screen" />
+	<script>
+			$(document).ready(function(){
+				$.ajax({
+						url:'/getBlacklist',
+						type: 'post',
+						success : function(result){
+							console.log(result);
+							$('bl2').append("<li>");
+						},
+						error : function(){
+							console.log('ajax fail!');
+						}
+					})
 
+				$('#theblacklist').click(function(){
+					console.log('in ajax');
+					
+				})
+			});
+	</script>
 	<!--<script type="text/javascript" src="./js/iwh4hkt.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-<script type="text/javascript" src="./js/jquery.js"></script>
+
 <script type="text/javascript" src="./js/main.js"></script>
 <!--<script type="text/javascript" src="./js/admin.js"></script>
 <script type="text/javascript" src="./js/jquery.jeditable.mini.js" charset="utf-8"></script>
@@ -28,7 +48,6 @@
   ga('send', 'pageview');
 
 </script>-->
-
 
 </head>
 	<section class="module">
@@ -79,4 +98,6 @@
 	
 
 </body>
+
 </html>
+
