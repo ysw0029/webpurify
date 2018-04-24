@@ -147,7 +147,7 @@ header li {
 header li a {
 	display: block;
 	padding:5px 15px;
-	color: #FFF;
+	color: black;
 	font-size:14px;
 	display: inline-block
 }

@@ -11,13 +11,19 @@
 	<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="/css/admin.css" type="text/css" media="screen" />
 	<script>
-			$(document).ready(function(){
+		$(document).ready(getListAjax());
+		$('#addtoblack').click(getListAjax());
+		function getListAjax(){
 				$.ajax({
 						url:'/getBlacklist',
 						type: 'post',
 						success : function(result){
-							console.log(result);
-							$('bl2').append("<li>");
+							console.log('script console log : '+result.length);
+							for(var i=0; i<result.length; i++){
+								$('#bl2').append("<li><font color='black'>"+result[i]+"</font></li>");
+							}
+							
+							
 						},
 						error : function(){
 							console.log('ajax fail!');
@@ -28,7 +34,7 @@
 					console.log('in ajax');
 					
 				})
-			});
+			}
 	</script>
 	<!--<script type="text/javascript" src="./js/iwh4hkt.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

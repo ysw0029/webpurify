@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 const WebPurify = require('webpurify');
 var io = require('socket.io-client');
+var sync = require('sync');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 var socket = io.connect('http://localhost:7777');
 
@@ -20,6 +21,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+var list=[];
 
 socket.on('connect', function(data) {
     socket.emit('join', 'Hello server from client');
@@ -31,32 +33,31 @@ app.get('/frontend', function(req, res){
 
 app.get('/',function(req, res){
     res.render('form.html');
-    //socket.emit('message', 'Send message from client');
+    socket.emit('message', 'Send message from client');
 
 });
 
 app.post('/return',function(req, res){
     console.log(req.body.data);
+    socket.emit('messages', req.body.data);
     returnKeyWord(req.body.data);
-    //socket.emit('messages', 'Send message from client');
+    
 });
 
 app.post('/addToBlacklist', function(req, res){
     console.log(req.body.addFilterWord);
     addToBlacklist(req.body.addFilterWord);
 
-    returnKeyWord('awlfhnlaehnlawef my_word');
+   // returnKeyWord('awlfhnlaehnlawef my_word');
 
 });
 
 
 app.post('/getBlacklist', function(req, res){
-    var list = getBlacklist();
-   // console.log(list[]);
-    res.send(list);
+    getBlacklist(returnList(res));
 });
 function getBlacklist(){
-    var list=[];
+    list = [];
     wp.getBlacklist()
     .then(blacklist => {
         for (word in blacklist) {
@@ -64,11 +65,10 @@ function getBlacklist(){
             list.push(blacklist[word]);
         }
     });
-    console.log(list);
-
-    return list;
 }
-
+function returnList(res){
+    res.send(list);
+}
 
 
 function addToBlacklist(req){
@@ -90,9 +90,17 @@ function returnKeyWord(req){
     .then(profanity => {
         for (word in profanity) {
             console.log(profanity[word]);
+            saveData(profanity[word]);
         }
     });
 }
+
+function saveData(req){
+    console.log('IN saveData '+req);
+    socket.emit('messages', req);
+}
+
+
 
 var server = app.listen(5000, function(){
     console.log("connecting server using port 5000");
